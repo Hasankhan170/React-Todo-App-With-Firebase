@@ -20,7 +20,7 @@ function Login() {
     <form>
         <input style={{
           width: '100%',
-          padding: '10px 80px',
+          padding: '10px 60px',
           margin: '5px 0',
           borderRadius: '5px',
           border: '1px solid #ccc',
@@ -32,7 +32,7 @@ function Login() {
         <br />
         <input style={{
           width: '100%',
-          padding: '10px 80px',
+          padding: '10px 60px',
           margin: '5px 0',
           borderRadius: '5px',
           border: '1px solid #ccc',
