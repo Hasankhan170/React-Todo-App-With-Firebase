@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './Layout.jsx'
 import Login from './screens/Login.jsx'
 import Register from './screens/Register.jsx'
+import Todo from './screens/Todo.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
   {
@@ -11,17 +13,17 @@ const router = createBrowserRouter([
     element : <Layout/>,
     children : [
       {
-        path : '/',
-        // element : <Todo/>
+        path : '/Todo',
+        element : <Todo/>
       },
       {
-    path : 'Login',
-    element : <Login/>
-  },
-  {
-    path : 'Register',
-    element : <Register/>
-  }
+        path : '/Login',
+        element : <Login/>
+      },
+      {
+        path : '/Register',
+        element : <Register/>
+      }
     ]
   }
 ])
