@@ -1,7 +1,31 @@
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { useRef } from "react"
+import { auth } from "../config/firebase/FirebaseConfig"
 
 
 
 function Login() {
+
+  const email = useRef()
+  const password = useRef()
+
+  const FormValue = (e)=>{
+    e.preventDefault()
+
+    signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    
+  })
+  .catch((error) => {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    
+  });
+  }
+
   return (
     <>
     <div style={{
@@ -17,7 +41,7 @@ function Login() {
       marginTop : '60px',
     }}>
        <h4>Login</h4>
-    <form>
+    <form onSubmit={FormValue}>
         <input style={{
           width: '100%',
           padding: '10px 60px',
@@ -28,7 +52,7 @@ function Login() {
           fontSize: '16px',
           color: '#333',
           backgroundColor: '#f1f1f1'
-        }} type="text" placeholder="Enter Your Name" />
+        }} type="email" placeholder="Enter Your Email" ref={email} />
         <br />
         <input style={{
           width: '100%',
@@ -40,7 +64,7 @@ function Login() {
           fontSize: '16px',
           color: '#333',
           backgroundColor: '#f1f1f1'
-        }} type="password" placeholder="Enter Your Password" />
+        }} type="password" placeholder="Enter Your Password" ref={password} />
         <br />
         <button style= {{
           width: '100%',
