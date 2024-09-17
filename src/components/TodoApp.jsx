@@ -3,59 +3,92 @@ import { useRef, useState } from "react"
 
 function TodoApp() {
 
-    const [getValue,setGetValue] = useState()
+    const [getValue,setGetValue] = useState([])
 
     const TodoInput = useRef()
 
 
     const TodoValue = (e)=>{
         e.preventDefault()
-        console.log(TodoInput.current.value);
-        
-    }
-  return (
-    <>
+       
 
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
-      margin : '0 auto',
-      borderRadius: '10px',
-      padding: '20px',
-      flexDirection : 'column',
-      height : 'auto',
-      marginTop : '60px',
-    }}>
-       <h4>Todo App</h4>
-        <input style={{
-          width: '100%',
-          padding: '10px 60px',
-          margin: '5px 0',
-          borderRadius: '5px',
-          border: '1px solid #ccc',
-          outline: 'none',
-          fontSize: '16px',
-          color: '#333',
-          backgroundColor: '#f1f1f1'
-        }} type="text" placeholder="Enter Your Todo" ref={TodoInput} />
-        <br />
-        <button onClick={TodoValue} style= {{
-          width: '100%',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-          fontSize: '16px',
-          fontWeight: 'bold'
-        }}>
-          Add Todo
-        </button>
-    </div>
-    </>
+        setGetValue([TodoInput.current.value])
+        TodoInput.current.value =''
+    }
+    return (
+        <>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                textAlign: 'center',
+                margin: '0 auto',
+                borderRadius: '10px',
+                padding: '20px',
+                flexDirection: 'column',
+                height: 'auto',
+                marginTop: '10px',
+            }}>
+                <h4>Todo App</h4>
+                <input
+                    style={{
+                        width: '100%',
+                        padding: '10px 60px',
+                        margin: '5px 0',
+                        borderRadius: '5px',
+                        border: '1px solid #ccc',
+                        outline: 'none',
+                        fontSize: '16px',
+                        color: '#333',
+                        backgroundColor: '#f1f1f1'
+                    }}
+                    type="text"
+                    placeholder="Enter Your Todo"
+                    ref={TodoInput}
+                />
+                <br />
+                <button
+                    onClick={TodoValue}
+                    style={{
+                        width: '100%',
+                        padding: '10px 20px',
+                        borderRadius: '5px',
+                        backgroundColor: '#4CAF50',
+                        color: 'white',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: '16px',
+                        fontWeight: 'bold'
+                    }}
+                >
+                    Add Todo
+                </button>
+            </div>
+
+            <div>
+                {getValue.length > 0 ? (
+                    getValue.map((item, index) => (
+                        <div
+                            key={index}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: '10px',
+                                padding: '10px',
+                                borderRadius: '5px',
+                                backgroundColor: '#f1f1f1',
+                                fontSize: '16px'
+                            }}
+                        >
+                            <p>{item}</p>
+                        </div>
+                    ))
+                ) : (
+                    <h5>Todo Not found</h5>
+                )}
+            </div>
+        </>
   )
 }
 
