@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { collection, addDoc, getDocs ,doc, deleteDoc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs ,doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "../config/firebase/FirebaseConfig";
 
 
@@ -63,12 +63,18 @@ function TodoApp() {
         
     }
 
-    const editTodo = (id)=>{
-        console.log('edit',id);
+    const editTodo = async (id)=>{
+
         const updateValue = prompt('Update your Todo');
-        getValue[id] = updateValue;
-        setGetValue([...getValue])
-        
+        if (updateValue === null || updateValue.trim() === '') {
+            return;
+        }
+
+        await updateDoc(doc(db, 'users', id),{todo: updateValue})
+        setGetValue(prevTodos => prevTodos.map(todo =>
+            todo.id === id ? { ...todo, todo: updateValue } : todo
+        ));
+
     }
 
 
