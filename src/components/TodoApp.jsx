@@ -10,9 +10,9 @@ function TodoApp() {
 
     const TodoValue = (e)=>{
         e.preventDefault()
-       
+       getValue.push(TodoInput.current.value)
 
-        setGetValue([TodoInput.current.value])
+        setGetValue([...getValue])
         TodoInput.current.value =''
     }
     return (
@@ -68,7 +68,7 @@ function TodoApp() {
             <div>
                 {getValue.length > 0 ? (
                     getValue.map((item, index) => (
-                        <div
+                        <div className="container"
                             key={index}
                             style={{
                                 display: 'flex',
@@ -85,7 +85,7 @@ function TodoApp() {
                         </div>
                     ))
                 ) : (
-                    <h5>Todo Not found</h5>
+                    <h5 className="container text-center">Todo Not found</h5>
                 )}
             </div>
         </>
