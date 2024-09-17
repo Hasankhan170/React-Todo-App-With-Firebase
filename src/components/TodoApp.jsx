@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { collection, addDoc, getDocs ,doc } from "firebase/firestore"; 
+import { collection, addDoc, getDocs ,doc, deleteDoc } from "firebase/firestore"; 
 import { db } from "../config/firebase/FirebaseConfig";
 
 
@@ -50,10 +50,16 @@ function TodoApp() {
         
     }
 
-    const deleteTodo = (id)=>{
-        console.log('delete', id);
-        getValue.splice(id ,1);
-        setGetValue([...getValue])
+    const deleteTodo = async (id)=>{
+        try {
+            await deleteDoc(doc(db, "users", id));
+            console.log('Todo deleted with ID: ', id);
+            setGetValue(prevTodos => prevTodos.filter(todo => todo.id !== id))
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
         
     }
 
