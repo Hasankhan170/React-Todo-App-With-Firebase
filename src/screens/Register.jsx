@@ -1,9 +1,12 @@
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useRef } from "react"
 import { auth } from "../config/firebase/FirebaseConfig"
+import { useNavigate } from "react-router-dom"
 
 
 function Register() {
+
+  const navigate = useNavigate()
 
   const name = useRef()
   const email = useRef()
@@ -18,6 +21,7 @@ function Register() {
     // Signed up 
     const user = userCredential.user;
     console.log(user);
+    navigate('/Login')
     
   })
   .catch((error) => {
