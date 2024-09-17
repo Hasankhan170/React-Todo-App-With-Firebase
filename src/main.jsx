@@ -23,6 +23,10 @@ const router = createBrowserRouter([
       {
         path : '/Register',
         element : <Register/>
+      },
+      {
+        path : '*',
+        element : () => <h1>Page Not Found</h1> 
       }
     ]
   }

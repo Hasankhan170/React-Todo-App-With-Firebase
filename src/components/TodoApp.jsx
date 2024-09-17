@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import { collection, addDoc, getDocs ,doc, deleteDoc, updateDoc } from "firebase/firestore"; 
+import { useRef, useState } from "react"
+import { collection, addDoc ,doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "../config/firebase/FirebaseConfig";
 
 
@@ -137,7 +137,7 @@ function TodoApp() {
                         <div key={item.id}
                             style={{
                                 display: 'flex',
-                                justifyContent: 'space-between',
+                                justifyContent: 'space-around',
                                 alignItems: 'center',
                                 padding: '10px',
                                 borderRadius: '5px',
@@ -152,8 +152,26 @@ function TodoApp() {
                              <h4>{item.todo}</h4>
                             </div>
                             <div>
-                                <button onClick={()=>deleteTodo(item.id)}>Delete</button>
-                                <button onClick={()=>editTodo(item.id)}>Edit</button>
+                                <button style={{
+                                    color: 'white',
+                                    cursor: 'pointer',
+                                    backgroundColor : 'red',
+                                    fontSize: '16px',
+                                    border : 'none',
+                                    fontWeight: 'bold',
+                                    padding : '10px',
+                                    marginRight: '5px',
+                                }} onClick={()=>deleteTodo(item.id)}>Delete</button>
+                                <button style={{
+                                    color: 'white',
+                                    cursor: 'pointer',
+                                    backgroundColor : 'green',
+                                    fontSize: '16px',
+                                    border : 'none',
+                                    fontWeight: 'bold',
+                                    padding : '10px',
+                                    marginRight: '5px',
+                                }} onClick={()=>editTodo(item.id)}>Edit</button>
                             </div>
                         </div>
                     ))
