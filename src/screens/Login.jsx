@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { useRef } from "react"
 import { auth } from "../config/firebase/FirebaseConfig"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -8,6 +9,7 @@ function Login() {
 
   const email = useRef()
   const password = useRef()
+  const navigate = useNavigate()
 
   const FormValue = (e)=>{
     e.preventDefault()
@@ -16,6 +18,7 @@ function Login() {
   .then((userCredential) => {
     const user = userCredential.user;
     console.log(user);
+    navigate('/todo')
     
   })
   .catch((error) => {

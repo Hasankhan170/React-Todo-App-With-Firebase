@@ -45,7 +45,19 @@ function Todo() {
 
   return (
     <>
-    <p>Your Uid : {UserUid}</p>
+   <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    margin : '0 auto',
+    borderRadius: '10px',
+    marginTop : '20px'
+   }}>
+   <p style={{
+    fontWeight: 'bold',
+   }}>Your Uid : {UserUid}</p>
+   </div>
     <TodoApp/>
     </>
   )

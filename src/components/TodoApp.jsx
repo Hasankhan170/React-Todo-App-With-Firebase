@@ -10,15 +10,15 @@ function TodoApp() {
 
     const TodoInput = useRef()
 
-    useEffect(()=>{
-        const fetchTodos = async ()=>{
-            const querySnapshot = await getDocs(collection(db, "users"));
-            const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
-            setGetValue(todoList)
+    // useEffect(()=>{
+    //     const fetchTodos = async ()=>{
+    //         const querySnapshot = await getDocs(collection(db, "users"));
+    //         const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
+    //         setGetValue(todoList)
     
-    }
-        fetchTodos()
-    },[])
+    // }
+    //     fetchTodos()
+    // },[])
 
 
     
