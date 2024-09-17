@@ -17,7 +17,10 @@ function TodoApp() {
     }
     return (
         <>
-            <div style={{
+           <div style={{
+            padding : '10px'
+           }}>
+           <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -68,26 +71,30 @@ function TodoApp() {
             <div>
                 {getValue.length > 0 ? (
                     getValue.map((item, index) => (
-                        <div className="container"
-                            key={index}
+                        <div key={index}
                             style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
-                                marginBottom: '10px',
                                 padding: '10px',
                                 borderRadius: '5px',
                                 backgroundColor: '#f1f1f1',
-                                fontSize: '16px'
+                                fontSize: '16px',
+                                width: '97%',
+                                margin : '0 auto',
+                                marginBottom: '10px',
                             }}
                         >
-                            <p>{item}</p>
+                            <div>
+                             <h4>{item}</h4>
+                            </div>
                         </div>
                     ))
                 ) : (
                     <h5 className="container text-center">Todo Not found</h5>
                 )}
             </div>
+           </div>
         </>
   )
 }
