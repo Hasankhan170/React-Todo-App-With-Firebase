@@ -1,20 +1,71 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { collection, addDoc, getDocs ,doc } from "firebase/firestore"; 
+import { db } from "../config/firebase/FirebaseConfig";
 
 
 function TodoApp() {
+    
 
     const [getValue,setGetValue] = useState([])
 
     const TodoInput = useRef()
 
-
-    const TodoValue = (e)=>{
-        e.preventDefault()
-       getValue.push(TodoInput.current.value)
-
-        setGetValue([...getValue])
-        TodoInput.current.value =''
+    useEffect(()=>{
+        const fetchTodos = async ()=>{
+            const querySnapshot = await getDocs(collection(db, "users"));
+            const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
+            setGetValue(todoList)
+    
     }
+        fetchTodos()
+    },[])
+
+
+    
+
+    const TodoValue = async (e)=>{
+        e.preventDefault()
+
+        const TodoText = TodoInput.current.value;
+
+        if(TodoText === ''){
+            alert('please enter todo')
+            return ;
+        }
+ // Add todo to Firestore
+       try { 
+        const docRef = await addDoc(collection(db, "users"),{todo :TodoText});
+
+        console.log("Document written with ID: ", docRef.id);
+        setGetValue(prevTodos => [...prevTodos , {id : docRef.id , todo :TodoText}])
+
+
+        TodoInput.current.value =''
+        
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+
+        
+        
+    }
+
+    const deleteTodo = (id)=>{
+        console.log('delete', id);
+        getValue.splice(id ,1);
+        setGetValue([...getValue])
+        
+    }
+
+    // const editTodo = (id)=>{
+    //     console.log('edit',id);
+    //     const updateValue = prompt('Update your Todo');
+    //     getValue[id] = updateValue;
+    //     setGetValue([...getValue])
+        
+    // }
+
+
     return (
         <>
            <div style={{
@@ -70,8 +121,8 @@ function TodoApp() {
 
             <div>
                 {getValue.length > 0 ? (
-                    getValue.map((item, index) => (
-                        <div key={index}
+                    getValue.map((item) => (
+                        <div key={item.id}
                             style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -86,12 +137,16 @@ function TodoApp() {
                             }}
                         >
                             <div>
-                             <h4>{item}</h4>
+                             <h4>{item.todo}</h4>
+                            </div>
+                            <div>
+                                <button onClick={()=>deleteTodo(item.id)}>Delete</button>
+                                {/* <button onClick={()=>editTodo(item.id)}>Edit</button> */}
                             </div>
                         </div>
                     ))
                 ) : (
-                    <h5 className="container text-center">Todo Not found</h5>
+                    <h5 className="container text-center">Todo Not found...</h5>
                 )}
             </div>
            </div>
