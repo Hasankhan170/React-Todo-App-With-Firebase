@@ -1,7 +1,9 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 
 
 function TodoApp() {
+
+    const [getValue,setGetValue] = useState()
 
     const TodoInput = useRef()
 
