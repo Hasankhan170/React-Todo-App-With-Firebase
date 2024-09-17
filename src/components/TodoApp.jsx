@@ -63,13 +63,13 @@ function TodoApp() {
         
     }
 
-    // const editTodo = (id)=>{
-    //     console.log('edit',id);
-    //     const updateValue = prompt('Update your Todo');
-    //     getValue[id] = updateValue;
-    //     setGetValue([...getValue])
+    const editTodo = (id)=>{
+        console.log('edit',id);
+        const updateValue = prompt('Update your Todo');
+        getValue[id] = updateValue;
+        setGetValue([...getValue])
         
-    // }
+    }
 
 
     return (
@@ -147,7 +147,7 @@ function TodoApp() {
                             </div>
                             <div>
                                 <button onClick={()=>deleteTodo(item.id)}>Delete</button>
-                                {/* <button onClick={()=>editTodo(item.id)}>Edit</button> */}
+                                <button onClick={()=>editTodo(item.id)}>Edit</button>
                             </div>
                         </div>
                     ))
