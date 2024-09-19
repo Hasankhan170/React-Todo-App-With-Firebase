@@ -15,12 +15,6 @@ function TodoApp() {
     const TodoInput = useRef()
 
     useEffect(()=>{
-        const fetchTodos = async ()=>{
-            const querySnapshot = await getDocs(collection(db, "users"));
-            const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
-            setGetValue(todoList)
-    
-    }
         fetchTodos()
     },[])
 
@@ -58,6 +52,11 @@ function TodoApp() {
         
         
     }
+    const fetchTodos = async ()=>{
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
+        setGetValue(todoList)    
+    }
 
     const deleteTodo = async (id)=>{
         try {
@@ -66,7 +65,8 @@ function TodoApp() {
             // Ye line state ko update karti hai.
             // filter method ka istemal karke aap wo todos nikaal rahe hain jinka ID id ke barabar nahi hai.
             // Iska matlab hai ke aap sirf un todos ko rakh rahe hain jo delete nahi hue hain.
-            setGetValue(prevTodos => prevTodos.filter(todo => todo.id !== id))
+            // setGetValue(prevTodos => prevTodos.filter(todo => todo.id !== id))
+            fetchTodos();
             
         } catch (error) {
             console.log(error);
@@ -74,6 +74,8 @@ function TodoApp() {
         }
         
     }
+
+
 
     const editTodo = async (id)=>{
 
