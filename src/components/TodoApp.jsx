@@ -3,6 +3,7 @@ import { collection, addDoc ,doc, deleteDoc, updateDoc } from "firebase/firestor
 import { db } from "../config/firebase/FirebaseConfig";
 
 // addDoc document add karne ky liye use hote ha;
+// getDocs function ka istemal Firestore se documents ko fetch karne ke liye hota hai.
 // collection(db, "users") ye batata hai ke kaunsi collection (yahan "users")
 // { todo: TodoText } ye object hai jo document mein store kiya jayega, jismein TodoText variable ki value hogi.
 
