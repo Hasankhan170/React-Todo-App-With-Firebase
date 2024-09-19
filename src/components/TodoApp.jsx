@@ -2,6 +2,9 @@ import { useRef, useState } from "react"
 import { collection, addDoc ,doc, deleteDoc, updateDoc } from "firebase/firestore"; 
 import { db } from "../config/firebase/FirebaseConfig";
 
+// addDoc document add karne ky liye use hote ha;
+// collection(db, "users") ye batata hai ke kaunsi collection (yahan "users")
+// { todo: TodoText } ye object hai jo document mein store kiya jayega, jismein TodoText variable ki value hogi.
 
 function TodoApp() {
     
@@ -32,11 +35,16 @@ function TodoApp() {
             alert('please enter todo')
             return ;
         }
- // Add todo to Firestore
+
+     // Add todo to Firebase Firestore
        try { 
         const docRef = await addDoc(collection(db, "users"),{todo :TodoText});
 
         console.log("Document written with ID: ", docRef.id);
+
+        // Ye line state ko update karti hai.
+        // Nayi todo ko list mein add karne ke liye spread operator (...) ka istemal kiya gaya hai.
+        // Naya todo object { id: docRef.id, todo: TodoText } ke saath add hota hai.
         setGetValue(prevTodos => [...prevTodos , {id : docRef.id , todo :TodoText}])
 
 
@@ -54,6 +62,9 @@ function TodoApp() {
         try {
             await deleteDoc(doc(db, "users", id));
             console.log('Todo deleted with ID: ', id);
+            // Ye line state ko update karti hai.
+            // filter method ka istemal karke aap wo todos nikaal rahe hain jinka ID id ke barabar nahi hai.
+            // Iska matlab hai ke aap sirf un todos ko rakh rahe hain jo delete nahi hue hain.
             setGetValue(prevTodos => prevTodos.filter(todo => todo.id !== id))
             
         } catch (error) {
@@ -71,6 +82,10 @@ function TodoApp() {
         }
 
         await updateDoc(doc(db, 'users', id),{todo: updateValue})
+        // Condition todo.id === id check karti hai
+        // Agar current todo ka ID id ke barabar hai, to aap usko update karte hain ({ ...todo, todo: updateValue }).
+        // Ye spread operator (...todo) ka istemal karke purani todo properties ko preserve karta hai aur todo: updateValue se naya text set karta hai.
+        // Agar condition false hai, to wo current todo ko waise ka waise hi rakhte hain.
         setGetValue(prevTodos => prevTodos.map(todo =>
             todo.id === id ? { ...todo, todo: updateValue } : todo
         ));
