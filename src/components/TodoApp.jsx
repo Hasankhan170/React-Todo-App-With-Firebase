@@ -1,5 +1,5 @@
-import { useRef, useState } from "react"
-import { collection, addDoc ,doc, deleteDoc, updateDoc } from "firebase/firestore"; 
+import { useEffect, useRef, useState } from "react"
+import { collection, addDoc ,doc, deleteDoc, updateDoc, getDocs } from "firebase/firestore"; 
 import { db } from "../config/firebase/FirebaseConfig";
 
 // addDoc document add karne ky liye use hote ha;
@@ -14,15 +14,15 @@ function TodoApp() {
 
     const TodoInput = useRef()
 
-    // useEffect(()=>{
-    //     const fetchTodos = async ()=>{
-    //         const querySnapshot = await getDocs(collection(db, "users"));
-    //         const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
-    //         setGetValue(todoList)
+    useEffect(()=>{
+        const fetchTodos = async ()=>{
+            const querySnapshot = await getDocs(collection(db, "users"));
+            const todoList = querySnapshot.docs.map((doc) =>({id : doc.id , ...doc.data()}));
+            setGetValue(todoList)
     
-    // }
-    //     fetchTodos()
-    // },[])
+    }
+        fetchTodos()
+    },[])
 
 
     
